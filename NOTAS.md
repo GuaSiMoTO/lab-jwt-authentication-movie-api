@@ -1,20 +1,8 @@
-## Responde estas preguntas (puedes escribirlas como comentarios en un archivo NOTAS.md):
+1. **¿Por qué es importante que el mensaje de error del login sea genérico** ("Credenciales incorrectas") en lugar de especificar si fue el email o la contraseña lo que falló? 
+Para que no sepan si fallo el email o el password por confidencialidad, de esta manera no pueden saber si algun usuario en concreto está registrado en esa WEB, APP... etc.
 
-## 1. ¿Por qué es mejor tener el controlador separado de las rutas?
+2. **¿Qué información NO deberías guardar nunca en el payload del JWT?** (pista: piensa en qué información es visible para cualquiera que tenga el token)
+Datos sensibles en general pero en este caso se refiere al password_hash aunque esté encriptado y cualquier información que no le sirva al usuario es mejor no mostrarla.
 
-Por ser mejor al organizar , al leer y/o buscar fallos. La ruta sabe si llega una request y el controlador sabe donde sacar los datos y crear la respuesta JSON, cada uno hace lo suyo.
-
-## 2. Si mañana quisieras cambiar los datos en memoria por una base de datos PostgreSQL, ¿en qué archivo harías el cambio principalmente?
-
-Hará el cambio en data/peliculas.js. Aquí traería los datos desde la BD y luego sería llamada desde controllers/peliculasController.js
-
-## 3. ¿Qué pasaría si en el router tuvieras /:id antes que /:id/resenas? Pruébalo y describe el resultado.
-
-Que el orden importa. habrá consufión. Si por ejemplo poner:
-
-```js
-router.get('/:id', listarResenas)
-router.get('/:id', obtenerPelicula)
-```
-
-en este caso, nunca entrará a obtenerPeliculas, siempre te listará la reseña del id del GET.
+3. **¿Por qué usamos `bcrypt.compare` en lugar de hashear la contraseña y compararla con `===`?**
+Porque Bcrypt añade el valor que le indiquemos (10-14) llamado salt antes de hashear. Bcrypt genera un hash diferente cada vez, aunque la contraseña sea la misma.
